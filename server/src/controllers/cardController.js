@@ -2,7 +2,12 @@ const { Card, Lesson } = require("../models/lesson_card.js")
 
 const addCard = async (req, res) => {
     try {
-        const newCard = new Card(req.body);
+        const card = {
+            image: req.file.path,
+            description: req.body.description,
+            lesson: req.body.lesson
+        }
+        const newCard = new Card(card);
         const saveCard = await newCard.save();
         res.status(200).json(saveCard);
     } catch (error) {

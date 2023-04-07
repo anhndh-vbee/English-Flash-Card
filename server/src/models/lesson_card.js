@@ -13,6 +13,8 @@ const cardSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Lesson'
     }
+}, {
+    timestamps: true
 })
 
 const lessonSchema = new mongoose.Schema({
@@ -24,6 +26,8 @@ const lessonSchema = new mongoose.Schema({
         type: String,
         require: true
     }
+}, {
+    timestamps: true
 })
 
 const Card = mongoose.model('Card', cardSchema);
