@@ -1,0 +1,38 @@
+.register-scene {
+    display: flex;
+    flex-direction: column;
+    height: 93vh;
+    margin: 0 auto;
+    background: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+}
+
+.header-register {
+    text-align: center;
+}
+
+.register {
+    background-color: white;
+    width: 400px;
+    border: 2px solid gray;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.register-register {
+    margin-top: 10px;
+    font-size: small;
+}
+
+.to-login-link {
+    width: fit-content;
+    text-decoration: none;
+    color: green;
+}
+
+.btn-register {
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+}

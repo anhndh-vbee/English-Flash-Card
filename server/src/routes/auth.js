@@ -4,8 +4,8 @@ const { checkToken } = require('../controllers/middlewareController');
 
 const authRoute = express.Router();
 
-authRoute.post('/register', registerUser)
-authRoute.post('/login', loginUser)
+authRoute.post('/auth/register', registerUser)
+authRoute.post('/auth/login', loginUser)
 authRoute.post('/refresh', requestRefreshToken)
 authRoute.post('/logout', checkToken, logoutUser)
 
