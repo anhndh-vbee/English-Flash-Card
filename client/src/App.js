@@ -4,6 +4,9 @@ import AllCards from './scenes/allCards/AllCards';
 import Login from './scenes/login/Login';
 import Register from './scenes/register/Register';
 import Navbar from './component/navbar/Navbar';
+import AllLessons from './scenes/allLessons/AllLessons';
+import EditCard from './scenes/editCard/EditCard';
+import AddCardForm from './scenes/addCard/AddCardForm';
 
 function App() {
     return (
@@ -11,12 +14,14 @@ function App() {
             <Router>
                 <Navbar />
                 <Routes>
-                    {/* <Route path='/' element={<AllCards />}></Route> */}
+                    <Route path='/' element={<AllLessons />}></Route>
+                    <Route path='/list-card' element={<AllCards />}></Route>
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/register' element={<Register />}></Route>
+                    <Route path='/update-card/:id' element={<EditCard />}></Route>
+                    <Route path='/add-card' element={<AddCardForm />}></Route>
                 </Routes>
             </Router>
-            {/* <img src='http://localhost:8086/uploads/2fdba102338433ddef6cb7a3f41f9c04'></img> */}
         </div>
     )
 }

@@ -4,7 +4,7 @@ const addCard = async (req, res) => {
     try {
         const image = req.file.path;
         const description = req.body.description;
-        const lesson = req.body.lesson
+        const lesson = req.body.lesson;
 
         const newCard = new Card({ image, description, lesson });
         const saveCard = await newCard.save();

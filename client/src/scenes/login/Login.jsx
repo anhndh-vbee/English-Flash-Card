@@ -47,7 +47,7 @@ export default function Login() {
                             'aria-label': 'weight',
                         }}
                         type='text'
-                        required={'true'}
+                        required={true}
                         onChange={(e) => setUserName(e.target.value)}
                     />
                     <FormHelperText id="userName">Enter your name</FormHelperText>
@@ -68,7 +68,7 @@ export default function Login() {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        required={'true'}
+                        required={true}
                         onChange={e => setPassword(e.target.value)}
                     />
                     <FormHelperText id="password">Enter your password</FormHelperText>

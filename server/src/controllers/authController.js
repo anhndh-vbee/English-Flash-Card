@@ -52,6 +52,8 @@ const loginUser = async (req, res) => {
             const accessToken = generateAccessToken(user)
             const refreshToken = generateRefreshToken(user)
 
+            listRefreshTokens.push(refreshToken);
+
             // lưu refreshToken vào cookie
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
@@ -59,8 +61,6 @@ const loginUser = async (req, res) => {
                 path: '/',
                 sameSite: 'strict'
             })
-
-            listRefreshTokens.push(refreshToken);
 
             const { password, ...otherField } = user._doc;
             res.status(200).json({ ...otherField, accessToken })
@@ -73,42 +73,38 @@ const loginUser = async (req, res) => {
 
 const requestRefreshToken = async (req, res) => {
     // lấy refresh token từ cookie
-    try {
-        const refreshToken = req.cookies.refreshToken;
-        if (!refreshToken) {
-            return res.status(401).json('Not authenticated');
-        }
-
-        // kiểm tra có đúng token trong list không
-        if (!listRefreshTokens.includes(refreshToken)) {
-            return res.status(403).json('Token invalid')
-        }
-
-        jwt.verify(refreshToken, config.JWT_REFRESH_KEY, (err, user) => {
-            if (err) {
-                console.log(err);
-            }
-
-            // lọc các refresh token cũ ra khỏi list
-            listRefreshTokens = listRefreshTokens.filter((token) => token !== refreshToken)
-
-            const newAccessToken = generateAccessToken(user);
-            const newRefreshToken = generateRefreshToken(user)
-
-            listRefreshTokens.push(newRefreshToken)
-
-            res.cookie('refreshToken', newRefreshToken, {
-                httpOnly: true,
-                secure: false,
-                path: '/',
-                sameSite: 'strict'
-            })
-
-            res.status(200).json({ accessToken: newAccessToken });
-        })
-    } catch (error) {
-        res.status(500).json(error)
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+        return res.status(401).json('Not authenticated');
     }
+
+    // kiểm tra có đúng token trong list không
+    if (!listRefreshTokens.includes(refreshToken)) {
+        return res.status(403).json('Token invalid')
+    }
+
+    jwt.verify(refreshToken, config.JWT_REFRESH_KEY, (err, user) => {
+        if (err) {
+            console.log(err);
+        }
+
+        // lọc các refresh token cũ ra khỏi list
+        listRefreshTokens = listRefreshTokens.filter((token) => token !== refreshToken)
+
+        const newAccessToken = generateAccessToken(user);
+        const newRefreshToken = generateRefreshToken(user)
+
+        listRefreshTokens.push(newRefreshToken)
+
+        res.cookie('refreshToken', newRefreshToken, {
+            httpOnly: true,
+            secure: false,
+            path: '/',
+            sameSite: 'strict'
+        })
+
+        res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+    })
 }
 
 const logoutUser = async (req, res) => {

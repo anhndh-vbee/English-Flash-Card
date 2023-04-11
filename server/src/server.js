@@ -12,6 +12,7 @@ const port = config.PORT;
 const host_name = config.HOST_NAME;
 
 app.use(cors());
+// app.use(cors({ credentials: true, origin: 'http://localhost:8086' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

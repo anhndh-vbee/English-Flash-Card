@@ -44,7 +44,7 @@ export default function Register() {
                     <Input
                         id="name"
                         aria-describedby="userName"
-                        required={'true'}
+                        required={true}
                         inputProps={{
                             'aria-label': 'weight',
                         }}
@@ -63,7 +63,7 @@ export default function Register() {
                             'aria-label': 'weight',
                         }}
                         type='email'
-                        required={'true'}
+                        required={true}
                         onChange={e => setEmail(e.target.value)}
                     />
                     <FormHelperText id="email">Enter your email</FormHelperText>
@@ -85,7 +85,7 @@ export default function Register() {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        required={'true'}
+                        required={true}
                         onChange={e => setPassword(e.target.value)}
                     />
                     <FormHelperText id="password">Enter your password</FormHelperText>

@@ -1,0 +1,12 @@
+.edit-card-header {
+    text-align: center;
+    margin-top: 5px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.form-edit {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}

@@ -23,7 +23,7 @@ const checkAuthAdmin = (req, res, next) => {
         if (req.user.data.isAdmin) {
             next();
         } else {
-            res.status(403).json('Access denied. Not authorized.')
+            return res.status(403).json('Access denied. Not authorized.')
         }
     })
 }

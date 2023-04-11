@@ -8,7 +8,7 @@ const { checkToken, checkAuthAdmin } = require('../controllers/middlewareControl
 const routes = express.Router();
 
 // card
-routes.post('/card/add-card', checkAuthAdmin, upload.single('file'), addCard);
+routes.post('/card/add-card', checkAuthAdmin, upload.single('image'), addCard);
 routes.get('/card/get-all-cards', checkToken, getAllCards);
 routes.get('/card/get-card/:id', checkToken, getCard);
 routes.put('/card/update-card/:id', checkAuthAdmin, updateCard);
