@@ -1,7 +1,9 @@
 import { useEffect } from "react"
 import { deleteLesson, getAllLessons } from "../../apis/lessonAPI"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Lesson from "../../containers/lesson/Lesson";
+import { Button } from "@mui/material";
 
 const AllLessons = () => {
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -26,17 +28,17 @@ const AllLessons = () => {
     return (
         <div className="all-lesson">
             <div className="list-lesson-header">List lesson</div>
-            {user?.isAdmin && <div>You are Admin</div>}
+            {user?.isAdmin && (
+                <NavLink to={'/add-lesson'}><Button variant="contained" color="primary">Add lesson</Button></NavLink>
+            )}
             <div className="all-lessons-container">
                 {lessons?.map((lesson, index) => {
                     return (
-                        <div key={index} className="lesson-container">
-                            <div>{lesson.description}</div>
-                            <div onClick={() => handleDeleteLesson(lesson?._id)}>Delete</div>
+                        <div className="a-lesson" key={index}>
+                            <Lesson id={lesson?._id} />
                         </div>
                     )
                 })}
-                <button onClick={() => navigate('/list-card')}>111</button>
             </div>
         </div>
     )

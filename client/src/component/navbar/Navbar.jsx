@@ -18,7 +18,8 @@ const Navbar = () => {
             <NavLink to="/" className="navbar-home"> Home </NavLink>
             {user ? (
                 <>
-                    <p className="navbar-user">Hi, <span>  {user.userName} </span> </p>
+                    <p className="navbar-user">Hi, <span>{user.userName} </span> </p>
+                    <NavLink to="/list-lesson" className="navbar-logout">List lesson</NavLink>
                     <NavLink to="/logout" onClick={handleLogout} className="navbar-logout"> Log out</NavLink>
                 </>
             ) : (

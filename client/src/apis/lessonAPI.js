@@ -24,7 +24,7 @@ export const getAllLessons = async (accessToken, dispatch) => {
 export const getLesson = async (accessToken, dispatch, id) => {
     dispatch(getLessonStart());
     try {
-        const res = await axios.get(`${DOMAIN}/lesson/get-all-lessons/${id}`, {
+        const res = await axios.get(`${DOMAIN}/lesson/get-lesson/${id}`, {
             headers: { token: `Bearer ${accessToken}` }
         });
         dispatch(getLessonSuccess(res.data));

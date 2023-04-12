@@ -14,20 +14,22 @@ const EditCard = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const user = useSelector(state => state.auth.login?.currentUser);
-    const card = useSelector(state => state.cards.cardToTake?.card)
+    const allCards = useSelector(state => state.cards.allCards?.listCards);
+    const cardToUpdate = allCards?.find(card => card?._id === id)
 
     const [description, setDescription] = useState('');
 
     const handleEditCard = (id) => {
-        const cardUpdate = { image: card?.image, description: description }
+        const cardUpdate = { image: cardToUpdate?.image, description: description }
         updateCard(user?.accessToken, dispatch, id, cardUpdate)
         alert('Update successfully')
         navigate('/list-card');
     }
 
-    if (card) {
-        var imgCard = card.image.replace('\\', '\/');
+    if (cardToUpdate) {
+        var imgCard = cardToUpdate.image.replace('\\', '\/');
     }
 
     useEffect(() => {
@@ -43,10 +45,10 @@ const EditCard = () => {
     return (
         <>
             {
-                card && (
+                cardToUpdate && (
                     <div className="edit-card-container">
                         <div className='edit-card-header'>Edit card</div>
-                        <form onSubmit={() => handleEditCard(card?._id)} className='form-edit'>
+                        <form onSubmit={() => handleEditCard(cardToUpdate?._id)} className='form-edit'>
                             <div className="card-img">
                                 <img className="card-img-info" src={`${DOMAIN}/${imgCard}`} alt="card image" />
                             </div>
@@ -60,7 +62,7 @@ const EditCard = () => {
                                         'aria-label': 'weight',
                                     }}
                                     type='text'
-
+                                    // value={cardToUpdate?.description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                                 <FormHelperText id="description">Change description</FormHelperText>
@@ -73,7 +75,7 @@ const EditCard = () => {
             }
 
             {
-                !card && (
+                !cardToUpdate && (
                     <div>Not found card</div>
                 )
             }

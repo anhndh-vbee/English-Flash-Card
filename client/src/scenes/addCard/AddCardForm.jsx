@@ -91,20 +91,27 @@ const AddCardForm = () => {
                 </form>
             </div>
 
-            {/* {_lessons && _lessons.map((_lesson, index) => (
-                <div key={index} className="list-lesson-choice">
-                    <div className="lesson-id-choice">{_lesson._id}</div>
-                    <div className="lesson-name-choice">{_lesson.description}</div>
-                </div>
-            )
-
-            )}
-
-            {!_lessons && (
-                <div className="no-lesson">
-                    No lesson be created
-                </div>
-            )} */}
+            <div className="list-lesson-choice-contain">
+                <div className="list-lesson-choice-header">List lesson</div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                    {_lessons && _lessons.map((_lesson, index) => (
+                        <tr key={index}>
+                            <td>{_lesson._id}</td>
+                            <td>{_lesson.description}</td>
+                        </tr>
+                    )
+                    )}
+                </table>
+                {!_lessons && (
+                    <div className="no-lesson">
+                        No lesson be created
+                    </div>
+                )}
+            </div>
         </>
     )
 }

@@ -30,29 +30,28 @@ const cardSlice = createSlice({
             state.message = action.payload;
         },
         getCardStart: (state) => {
-            state.cardToTake.loading = true;
+            state.allCards.loading = true;
         },
-        getCardSuccess: (state, action) => {
-            state.cardToTake.loading = false;
-            state.cardToTake.error = false;
-            state.cardToTake.card = action.payload;
+        getCardSuccess: (state) => {
+            state.allCards.loading = false;
+            state.allCards.error = false;
         },
         getCardFailed: (state, action) => {
-            state.cardToTake.error = true;
-            state.cardToTake.loading = false;
+            state.allCards.error = true;
+            state.allCards.loading = false;
             state.message = action.payload;
         },
         updateCardStart: (state) => {
-            state.cardToTake.loading = true;
+            state.allCards.loading = true;
         },
         updateCardSuccess: (state, action) => {
-            state.cardToTake.loading = false;
-            state.cardToTake.error = false;
-            state.cardToTake.card = action.payload;
+            state.allCards.loading = false;
+            state.allCards.error = false;
+
         },
         updateCardFailed: (state, action) => {
-            state.cardToTake.error = true;
-            state.cardToTake.loading = false;
+            state.allCards.error = true;
+            state.allCards.loading = false;
             state.message = action.payload;
         },
         deleteCardStart: (state) => {
@@ -62,7 +61,6 @@ const cardSlice = createSlice({
             state.allCards.loading = false;
             state.allCards.error = false;
             state.message = action.payload;
-            // state.allCards.listCards = state.allCards.listCards.filter((card, index) => index !== action.payload)
         },
         deleteCardFailed: (state, action) => {
             state.allCards.error = true;
@@ -70,16 +68,16 @@ const cardSlice = createSlice({
             state.message = action.payload;
         },
         addCardStart: (state) => {
-            state.cardToTake.loading = true;
+            state.allCards.loading = true;
         },
         addCardSuccess: (state, action) => {
-            state.cardToTake.loading = false;
-            state.cardToTake.error = false;
-            state.cardToTake.card = action.payload;
+            state.allCards.loading = false;
+            state.allCards.error = false;
+            state.allCards.listCards.push(action.payload)
         },
         addCardFailed: (state, action) => {
-            state.cardToTake.error = true;
-            state.cardToTake.loading = false;
+            state.allCards.error = true;
+            state.allCards.loading = false;
             state.message = action.payload;
         }
     }

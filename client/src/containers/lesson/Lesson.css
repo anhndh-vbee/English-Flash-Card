@@ -1,0 +1,31 @@
+.lesson-container {
+    padding: 10px;
+    border: 1px solid gray;
+    margin: 5px;
+}
+
+.lesson-content {
+    float: left;
+}
+
+.list-card-of-lesson {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 5px;
+}
+
+.lesson-header-and-action {
+    display: flex;
+    flex-direction: column;
+}
+
+.lesson-header {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.lesson-action {
+    display: flex;
+    margin: 0 auto;
+}

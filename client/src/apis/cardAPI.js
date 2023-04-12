@@ -21,6 +21,8 @@ export const getCard = async (accessToken, dispatch, id) => {
             headers: { token: `Bearer ${accessToken}` }
         });
         dispatch(getCardSuccess(res.data));
+        // console.log(res.data);
+        return res.data;
     } catch (error) {
         dispatch(getCardFailed());
     }

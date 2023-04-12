@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { Button, Stack } from "@mui/material";
@@ -6,54 +6,42 @@ import { deleteCard, getCard } from "../../apis/cardAPI";
 import DOMAIN from "../../config";
 import './Card.css'
 
-const Card = (props) => {
-    const id = props.idCard
-    const index = props.index
-    const card = useSelector(state => state.cards.allCards?.listCards[index]);
-
-    // const card = useSelector(state => state.cards.cardToTake?.card)
+const Card = ({ idCard }) => {
     const user = useSelector(state => state.auth.login?.currentUser);
+    const allCards = useSelector(state => state.cards.allCards?.listCards);
+    const cardToShow = allCards?.find(card => card?._id === idCard)
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    if (card) {
-        var linkImageCard = card.image.replace('\\', '\/');
-    }
-
     const handleDeleteCard = (id) => {
         deleteCard(user?.accessToken, dispatch, id)
-        alert(`You have just deleted card with description: ${card?.description}`)
+        alert(`You have just deleted card with description: ${cardToShow?.description}`)
     }
 
     const handleEditCard = (id) => {
         navigate(`/update-card/${id}`)
     }
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/login')
-        }
-
-        if (user?.accessToken) {
-            getCard(user?.accessToken, dispatch, id)
-        }
-    }, [])
+    if (cardToShow) {
+        var linkImageCard = cardToShow && cardToShow?.image.replace('\\', '\/');
+    }
 
     return (
         <>
             {
-                card && user?.isAdmin && (
+                cardToShow && user?.isAdmin && (
                     <div className="card-container">
                         <div className="card-img">
                             <img className="card-img-info" src={`${DOMAIN}/${linkImageCard}`} alt="card image" />
                         </div>
                         < div className="card-des" >
-                            {card.description}
+                            {cardToShow.description}
                         </div>
                         <div className="action-card">
                             <Stack direction='row'>
-                                <Button variant="contained" color="warning" onClick={() => handleDeleteCard(card?._id)}>Delete</Button>
-                                <Button variant="contained" color="info" onClick={() => handleEditCard(card?._id)}>Edit</Button>
+                                <Button variant="contained" color="warning" onClick={() => handleDeleteCard(cardToShow?._id)}>Delete</Button>
+                                <Button variant="contained" color="info" onClick={() => handleEditCard(cardToShow?._id)}>Edit</Button>
                             </Stack>
                         </div>
                     </div>
@@ -61,7 +49,7 @@ const Card = (props) => {
             }
 
             {
-                !card && <div>Not found</div>
+                !cardToShow && <div>Not found</div>
             }
         </>
     )
