@@ -8,11 +8,6 @@ const cardSlice = createSlice({
             loading: false,
             error: false
         },
-        cardToTake: {
-            card: null,
-            loading: false,
-            error: false
-        },
         message: ""
     },
     reducers: {
@@ -44,10 +39,9 @@ const cardSlice = createSlice({
         updateCardStart: (state) => {
             state.allCards.loading = true;
         },
-        updateCardSuccess: (state, action) => {
+        updateCardSuccess: (state) => {
             state.allCards.loading = false;
             state.allCards.error = false;
-
         },
         updateCardFailed: (state, action) => {
             state.allCards.error = true;

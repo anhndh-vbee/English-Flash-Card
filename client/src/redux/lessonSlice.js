@@ -8,11 +8,6 @@ const lessonSlice = createSlice({
             loading: false,
             error: false
         },
-        lessonToTake: {
-            lesson: null,
-            loading: false,
-            error: false
-        },
         message: "",
     },
     reducers: {
@@ -56,6 +51,7 @@ const lessonSlice = createSlice({
         addLessonSuccess: (state, action) => {
             state.allLessons.loading = false;
             state.allLessons.listLessons.push(action.payload);
+            console.log(action.payload);
             state.allLessons.error = false;
         },
         addLessonFailed: (state, action) => {
@@ -66,9 +62,8 @@ const lessonSlice = createSlice({
         updateLessonStart: (state) => {
             state.allLessons.loading = true;
         },
-        updateLessonSuccess: (state, action) => {
+        updateLessonSuccess: (state) => {
             state.allLessons.loading = false;
-            state.allLessons.listLessons = action.payload;
             state.allLessons.error = false;
         },
         updateLessonFailed: (state) => {

@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { Button, Stack } from "@mui/material";
-import { deleteCard, getCard } from "../../apis/cardAPI";
+import { deleteCard } from "../../apis/cardAPI";
 import DOMAIN from "../../config";
 import './Card.css'
 
-const Card = ({ idCard }) => {
+const Card = ({ idCard, isCardInLesson }) => {
     const user = useSelector(state => state.auth.login?.currentUser);
     const allCards = useSelector(state => state.cards.allCards?.listCards);
     const cardToShow = allCards?.find(card => card?._id === idCard)
@@ -27,6 +26,22 @@ const Card = ({ idCard }) => {
         var linkImageCard = cardToShow && cardToShow?.image.replace('\\', '\/');
     }
 
+    // const handleCompleteCard = (id) => {
+    //     if (e.target.checked) {
+    //         document.querySelector(`flip-card-checked-${id}`).style.display = 'none'
+    //     }
+    // }
+
+    // const [check, setCheck] = useState(false);
+    // const [cardComplete, setCardComplete] = useState();
+    // const handleCompleteCard = (e) => {
+    //     setCheck(e.checked);
+    // }
+
+    // const handleFlipCard = () => {
+    //     document.getElementById('flip-card').classList.toggle('flip-card-user-add')
+    // }
+
     return (
         <>
             {
@@ -45,6 +60,43 @@ const Card = ({ idCard }) => {
                             </Stack>
                         </div>
                     </div>
+                )
+            }
+
+            {
+                cardToShow && !user?.isAdmin && isCardInLesson && (
+                    <div className="a-flip-card-user">
+                        <input type="checkbox" style={{ width: '20px', height: '20px' }} />Checked
+
+                        <div className="flip-container" onClick={() => this.classList.toggle('hover')}>
+                            <div className="flipper">
+                                <div className="front">
+                                    <img src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" style={{ width: '200px', height: '200px' }} />
+                                </div>
+                                <div className="back">
+                                    {cardToShow?.description}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            {
+                cardToShow && !user?.isAdmin && !isCardInLesson && (
+                    <>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" style={{ width: '200px', height: '200px' }} />
+                                </div>
+                                <div class="flip-card-back">
+                                    {cardToShow?.description}
+                                </div>
+                            </div>
+                        </div>
+
+                    </>
                 )
             }
 

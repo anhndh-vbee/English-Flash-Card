@@ -24,11 +24,11 @@ const AddCardForm = () => {
             newCard.append('lesson', lesson)
         }
         addCard(user?.accessToken, dispatch, newCard);
-        navigate('/list-card');
+        navigate('/list-cards');
     }
 
     const handleShowAddLesson = () => {
-        if (document.getElementById('inputLesson').style.display == 'none') {
+        if (document.getElementById('inputLesson').style.display === 'none') {
             document.getElementById('inputLesson').style.display = ''
         } else {
             document.getElementById('inputLesson').style.display = 'none'

@@ -2,12 +2,11 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCard, updateCard } from '../../apis/cardAPI';
-import DOMAIN from '../../config';
+import { updateCard } from '../../apis/cardAPI';
 import './EditCard.css';
 
 const EditCard = () => {
@@ -19,28 +18,19 @@ const EditCard = () => {
     const allCards = useSelector(state => state.cards.allCards?.listCards);
     const cardToUpdate = allCards?.find(card => card?._id === id)
 
-    const [description, setDescription] = useState('');
+    // const { description, image } = cardToUpdate;
+    const [description, setDescription] = useState(cardToUpdate?.description);
+    const [image, setImage] = useState(cardToUpdate?.image);
+
 
     const handleEditCard = (id) => {
-        const cardUpdate = { image: cardToUpdate?.image, description: description }
-        updateCard(user?.accessToken, dispatch, id, cardUpdate)
+        const cardUpdated = new FormData();
+        cardUpdated.append('description', description);
+        cardUpdated.append('image', image)
+        updateCard(user?.accessToken, dispatch, id, cardUpdated)
         alert('Update successfully')
-        navigate('/list-card');
+        navigate('/');
     }
-
-    if (cardToUpdate) {
-        var imgCard = cardToUpdate.image.replace('\\', '\/');
-    }
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-
-        if (user?.accessToken) {
-            getCard(user?.accessToken, dispatch, id)
-        }
-    })
 
     return (
         <>
@@ -49,9 +39,9 @@ const EditCard = () => {
                     <div className="edit-card-container">
                         <div className='edit-card-header'>Edit card</div>
                         <form onSubmit={() => handleEditCard(cardToUpdate?._id)} className='form-edit'>
-                            <div className="card-img">
-                                <img className="card-img-info" src={`${DOMAIN}/${imgCard}`} alt="card image" />
-                            </div>
+                            {/* <div className="card-img">
+                                    <img className="card-img-info" src={`${DOMAIN}/${imgCard}`} alt="card image" />
+                                </div> */}
 
                             <FormControl variant="standard" sx={{ m: 1 }}>
                                 <InputLabel htmlFor="description">Descirption</InputLabel>
@@ -62,10 +52,25 @@ const EditCard = () => {
                                         'aria-label': 'weight',
                                     }}
                                     type='text'
-                                    // value={cardToUpdate?.description}
+                                    value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                                 <FormHelperText id="description">Change description</FormHelperText>
+                            </FormControl>
+
+                            <FormControl variant="standard" sx={{ m: 1 }}>
+                                <InputLabel htmlFor="image">Image</InputLabel>
+                                <Input
+                                    id="image"
+                                    aria-describedby="image"
+                                    inputProps={{
+                                        'aria-label': 'weight',
+                                    }}
+                                    type='file'
+                                    required='true'
+                                    onChange={(e) => setImage(e.target.files[0])}
+                                />
+                                <FormHelperText id="image">Upload image</FormHelperText>
                             </FormControl>
 
                             <Button sx={{ width: '100px', margin: '0 auto' }} type='submit' variant='contained' color='warning'>Edit</Button>

@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { deleteLesson, getLesson } from "../../apis/lessonAPI";
-import { getCard } from "../../apis/cardAPI";
+import { Button } from "@mui/material";
+import { deleteLesson } from "../../apis/lessonAPI";
 import Card from "../card/Card";
 import './Lesson.css';
-import { Button, Stack } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 const Lesson = ({ id }) => {
-
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const user = useSelector(state => state.auth.login?.currentUser);
-
     const allLessons = useSelector(state => state.lessons.allLessons?.listLessons);
     const lessonToShow = allLessons?.find(lesson => lesson?._id === id);
     const listCardOfLesson = lessonToShow && lessonToShow?.cards;
@@ -45,7 +39,7 @@ const Lesson = ({ id }) => {
                         <div className="lesson-header">{lessonToShow.description}</div>
                         <div className="lesson-action">
                             <Button color="error" variant="contained" onClick={() => handleDeleteLesson(lessonToShow?._id)}>Delete</Button>
-                            <Button color="warning" variant="contained">Edit</Button>
+                            <NavLink to={`/edit-lesson/${lessonToShow?._id}`}><Button color="warning" variant="contained">Edit</Button></NavLink>
                         </div>
                     </div>
                     <hr />
@@ -53,6 +47,23 @@ const Lesson = ({ id }) => {
                         {listCardOfLesson?.map((card, index) => (
                             <div key={index} className="card-of-lesson">
                                 <Card idCard={card} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {lessonToShow && !user?.isAdmin && listCardOfLesson && (
+                <div className="lesson-container">
+                    <div className="lesson-header-check">
+                        <div className="lesson-header">{lessonToShow.description}</div>
+                        <input className="check-lesson" type="checkbox" />Lesson checked
+                    </div>
+                    <hr />
+                    <div className="list-card-of-lesson">
+                        {listCardOfLesson?.map((card, index) => (
+                            <div key={index} className="card-of-lesson">
+                                <Card isCardInLesson={true} idCard={card} />
                             </div>
                         ))}
                     </div>

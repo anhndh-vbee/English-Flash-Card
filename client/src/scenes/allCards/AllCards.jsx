@@ -5,6 +5,7 @@ import { Button, Stack } from "@mui/material";
 import { getAllCards } from "../../apis/cardAPI";
 import Card from "../../containers/card/Card";
 import './AllCards.css'
+import { getAllLessons } from "../../apis/lessonAPI";
 
 const AllCards = () => {
     const user = useSelector(state => state.auth.login?.currentUser)
@@ -38,7 +39,7 @@ const AllCards = () => {
                             {allCards?.map((card, index) => {
                                 return (
                                     <>
-                                        <Card idCard={card?._id} index={index} />
+                                        <Card isCardInLesson={false} idCard={card?._id} index={index} />
                                     </>
                                 )
                             })}

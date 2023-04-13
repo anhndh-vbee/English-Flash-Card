@@ -60,7 +60,7 @@ export const addLesson = async (acccessToken, dispacth, lesson) => {
 export const updateLesson = async (acccessToken, dispacth, id, lesson) => {
     dispacth(updateLessonStart());
     try {
-        const res = await axios.post(`${DOMAIN}/lesson/update-lesson/${id}`, lesson, {
+        const res = await axios.put(`${DOMAIN}/lesson/update-lesson/${id}`, lesson, {
             headers: { token: `Bearer ${acccessToken}` }
         });
         dispacth(updateLessonSuccess(res.data));
