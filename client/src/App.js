@@ -9,6 +9,7 @@ import EditCard from './scenes/editCard/EditCard';
 import AddCardForm from './scenes/addCard/AddCardForm';
 import AddLessonForm from './scenes/addLesson/AddLesson';
 import EditLesson from './scenes/editLesson/EditLesson';
+import LessonUser from './scenes/lessonUser/LessonUser';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path='/add-card' element={<AddCardForm />}></Route>
                     <Route path='/add-lesson' element={<AddLessonForm />}></Route>
                     <Route path='/edit-lesson/:id' element={<EditLesson />}></Route>
+                    <Route path='/lesson/:id' element={<LessonUser />}></Route>
                 </Routes>
             </Router>
         </div>

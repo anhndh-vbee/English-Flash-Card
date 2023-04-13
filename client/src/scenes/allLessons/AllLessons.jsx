@@ -32,9 +32,7 @@ const AllLessons = () => {
             <div className="all-lessons-container">
                 {lessons?.map((lesson, index) => {
                     return (
-                        <div className="a-lesson" key={index}>
-                            <Lesson id={lesson?._id} />
-                        </div>
+                        <Lesson id={lesson?._id} key={index} />
                     )
                 })}
             </div>

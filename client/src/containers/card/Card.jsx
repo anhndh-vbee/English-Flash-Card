@@ -4,8 +4,10 @@ import { Button, Stack } from "@mui/material";
 import { deleteCard } from "../../apis/cardAPI";
 import DOMAIN from "../../config";
 import './Card.css'
+import { useState } from "react";
+import ReactCardFlip from "react-card-flip";
 
-const Card = ({ idCard, isCardInLesson }) => {
+const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
     const user = useSelector(state => state.auth.login?.currentUser);
     const allCards = useSelector(state => state.cards.allCards?.listCards);
     const cardToShow = allCards?.find(card => card?._id === idCard)
@@ -25,6 +27,31 @@ const Card = ({ idCard, isCardInLesson }) => {
     if (cardToShow) {
         var linkImageCard = cardToShow && cardToShow?.image.replace('\\', '\/');
     }
+
+    const [isFlipped, setFlipped] = useState(false);
+    const handleFlip = (e) => {
+        e.preventDefault();
+        setFlipped((isFlipped) => !isFlipped);
+    }
+
+    const styles = {
+        card: {
+            border: '1px solid #eeeeee',
+            borderRadius: '3px',
+            padding: '15px',
+            width: '250px'
+        },
+        image: {
+            height: '200px',
+            width: '250px'
+        }
+    };
+
+    // const _card = document.querySelector('.card');
+    // const handleFlip = () => {
+    //     _card.classList.toggle('is-flipped')
+    // }
+
 
     // const handleCompleteCard = (id) => {
     //     if (e.target.checked) {
@@ -65,19 +92,18 @@ const Card = ({ idCard, isCardInLesson }) => {
 
             {
                 cardToShow && !user?.isAdmin && isCardInLesson && (
-                    <div className="a-flip-card-user">
-                        <input type="checkbox" style={{ width: '20px', height: '20px' }} />Checked
-
-                        <div className="flip-container" onClick={() => this.classList.toggle('hover')}>
-                            <div className="flipper">
-                                <div className="front">
-                                    <img src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" style={{ width: '200px', height: '200px' }} />
-                                </div>
-                                <div className="back">
-                                    {cardToShow?.description}
-                                </div>
+                    <div className="card-of-user">
+                        <ReactCardFlip isFlipped={isFlipped}>
+                            <div className="user-card-image">
+                                <img className="img-user-card" src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" />
+                                <center><button className="btn-flip" onClick={handleFlip}>Show result</button></center>
                             </div>
-                        </div>
+
+                            <div style={styles.card} className="user-card-content">
+                                <div className="result">{cardToShow?.description}</div>
+                                <center><button className="btn-flip" onClick={handleFlip}>Show image</button></center>
+                            </div>
+                        </ReactCardFlip>
                     </div>
                 )
             }

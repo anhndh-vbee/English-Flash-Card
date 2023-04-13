@@ -4,6 +4,17 @@ import { deleteLesson } from "../../apis/lessonAPI";
 import Card from "../card/Card";
 import './Lesson.css';
 import { NavLink } from "react-router-dom";
+import Paper from '@mui/material/Paper';
+
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 const Lesson = ({ id }) => {
     const dispatch = useDispatch();
@@ -53,7 +64,7 @@ const Lesson = ({ id }) => {
                 </div>
             )}
 
-            {lessonToShow && !user?.isAdmin && listCardOfLesson && (
+            {/* {lessonToShow && !user?.isAdmin && listCardOfLesson && (
                 <div className="lesson-container">
                     <div className="lesson-header-check">
                         <div className="lesson-header">{lessonToShow.description}</div>
@@ -62,11 +73,15 @@ const Lesson = ({ id }) => {
                     <hr />
                     <div className="list-card-of-lesson">
                         {listCardOfLesson?.map((card, index) => (
-                            <div key={index} className="card-of-lesson">
-                                <Card isCardInLesson={true} idCard={card} />
-                            </div>
+                            <Card key={index} isCardInLesson={true} idCard={card} />
                         ))}
                     </div>
+                </div>
+            )} */}
+
+            {lessonToShow && !user?.isAdmin && listCardOfLesson && (
+                <div className="name-lesson-of-user">
+                    <Item><NavLink style={{ textDecoration: 'none' }} to={`lesson/${lessonToShow?._id}`}>{lessonToShow?.description}</NavLink></Item>
                 </div>
             )}
 

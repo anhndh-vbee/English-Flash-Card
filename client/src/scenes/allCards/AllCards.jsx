@@ -38,9 +38,7 @@ const AllCards = () => {
                         <div className="list-card-container">
                             {allCards?.map((card, index) => {
                                 return (
-                                    <>
-                                        <Card isCardInLesson={false} idCard={card?._id} index={index} />
-                                    </>
+                                    <Card isCardInLesson={false} idCard={card?._id} key={index} />
                                 )
                             })}
                         </div>
