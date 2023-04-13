@@ -40,8 +40,10 @@ const getCard = async (req, res) => {
 const updateCard = async (req, res) => {
     try {
         const cardId = req.params.id;
-        const updateCard = req.body;
-        await Card.findByIdAndUpdate(cardId, updateCard);
+        const image = req.file.path;
+        const description = req.body.description;
+        const cardUpdated = { image, description };
+        await Card.findByIdAndUpdate(cardId, cardUpdated);
         res.status(200).json('Update card successfully');
     } catch (error) {
         res.status(500).json(error);

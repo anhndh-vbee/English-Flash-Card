@@ -11,7 +11,7 @@ const routes = express.Router();
 routes.post('/card/add-card', checkAuthAdmin, upload.single('image'), addCard);
 routes.get('/card/get-all-cards', checkToken, getAllCards);
 routes.get('/card/get-card/:id', checkToken, getCard);
-routes.put('/card/update-card/:id', checkAuthAdmin, updateCard);
+routes.put('/card/update-card/:id', checkAuthAdmin, upload.single('image'), updateCard);
 routes.delete('/card/delete-card/:id', checkToken, checkAuthAdmin, deleteCard);
 
 // lesson
