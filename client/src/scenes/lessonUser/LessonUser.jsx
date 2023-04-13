@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -43,30 +41,7 @@ function a11yProps(index) {
     };
 }
 
-
 const LessonUser = () => {
-    // const { id } = useParams();
-    // const allLessons = useSelector(state => state.lessons.allLessons?.listLessons);
-    // const lessonUser = allLessons.find(lesson => lesson?._id === id);
-    // const cardUserOfLesson = lessonUser && lessonUser?.cards;
-
-    // const handleLearned = () => {
-
-    // }
-
-    // return (
-    //     <div className="lesson-user-container">
-    //         <div className="lesson-user-header">
-    //             {lessonUser.description}
-    //         </div>
-    //         {cardUserOfLesson?.map((card, index) => {
-    //             return (
-    //                 <Card idCard={card} key={index} isCardInLesson={true} />
-    //             )
-    //         })}
-    //     </div>
-    // )
-
     const { id } = useParams();
     const allLessons = useSelector(state => state.lessons.allLessons?.listLessons);
     const lessonUser = allLessons.find(lesson => lesson?._id === id);
@@ -85,7 +60,7 @@ const LessonUser = () => {
     }
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', backgroundColor: '#e1d0c0', height: '90vh' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     {cardUserOfLesson?.map((card, indexCard) => (

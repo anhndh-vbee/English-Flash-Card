@@ -76,7 +76,6 @@ const AddLessonForm = () => {
                             }}
                             type='text'
                             onChange={e => setCardListToAdd(e.target.value)}
-                        // onChange={(e) => setDescription(e.target.value)}
                         />
                         <FormHelperText id="card">Enter card id</FormHelperText>
                     </FormControl>

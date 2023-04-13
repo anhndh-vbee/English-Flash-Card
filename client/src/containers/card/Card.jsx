@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { Button, Stack } from "@mui/material";
-import { deleteCard } from "../../apis/cardAPI";
-import DOMAIN from "../../config";
-import './Card.css'
 import { useState } from "react";
 import ReactCardFlip from "react-card-flip";
+import DOMAIN from "../../config";
+import { deleteCard } from "../../apis/cardAPI";
+import CustomModal from "../../component/modal/CustomModal";
+import './Card.css'
 
-const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
+const Card = ({ idCard, isCardInLesson }) => {
     const user = useSelector(state => state.auth.login?.currentUser);
     const allCards = useSelector(state => state.cards.allCards?.listCards);
     const cardToShow = allCards?.find(card => card?._id === idCard)
@@ -17,7 +18,9 @@ const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
 
     const handleDeleteCard = (id) => {
         deleteCard(user?.accessToken, dispatch, id)
-        alert(`You have just deleted card with description: ${cardToShow?.description}`)
+        alert(`You have just deleted card with description: ${cardToShow?.description}. Wait a minute to see change`)
+        handleClose();
+        navigate('/list-cards')
     }
 
     const handleEditCard = (id) => {
@@ -47,30 +50,18 @@ const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
         }
     };
 
-    // const _card = document.querySelector('.card');
-    // const handleFlip = () => {
-    //     _card.classList.toggle('is-flipped')
-    // }
-
-
-    // const handleCompleteCard = (id) => {
-    //     if (e.target.checked) {
-    //         document.querySelector(`flip-card-checked-${id}`).style.display = 'none'
-    //     }
-    // }
-
-    // const [check, setCheck] = useState(false);
-    // const [cardComplete, setCardComplete] = useState();
-    // const handleCompleteCard = (e) => {
-    //     setCheck(e.checked);
-    // }
-
-    // const handleFlipCard = () => {
-    //     document.getElementById('flip-card').classList.toggle('flip-card-user-add')
-    // }
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return (
         <>
+            <CustomModal
+                open={open}
+                handleClose={handleClose}
+                card={cardToShow}
+                handleDeleteCard={handleDeleteCard}
+            />
             {
                 cardToShow && user?.isAdmin && (
                     <div className="card-container">
@@ -82,7 +73,7 @@ const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
                         </div>
                         <div className="action-card">
                             <Stack direction='row'>
-                                <Button variant="contained" color="warning" onClick={() => handleDeleteCard(cardToShow?._id)}>Delete</Button>
+                                <Button variant="contained" color="warning" onClick={handleOpen}>Delete</Button>
                                 <Button variant="contained" color="info" onClick={() => handleEditCard(cardToShow?._id)}>Edit</Button>
                             </Stack>
                         </div>
@@ -94,14 +85,12 @@ const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
                 cardToShow && !user?.isAdmin && isCardInLesson && (
                     <div className="card-of-user">
                         <ReactCardFlip isFlipped={isFlipped}>
-                            <div className="user-card-image">
+                            <div onClick={handleFlip} className="user-card-image">
                                 <img className="img-user-card" src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" />
-                                <center><button className="btn-flip" onClick={handleFlip}>Show result</button></center>
                             </div>
 
-                            <div style={styles.card} className="user-card-content">
+                            <div onClick={handleFlip} style={styles.card} className="user-card-content">
                                 <div className="result">{cardToShow?.description}</div>
-                                <center><button className="btn-flip" onClick={handleFlip}>Show image</button></center>
                             </div>
                         </ReactCardFlip>
                     </div>
@@ -110,19 +99,16 @@ const Card = ({ idCard, isCardInLesson, onFlip, handleLearned }) => {
 
             {
                 cardToShow && !user?.isAdmin && !isCardInLesson && (
-                    <>
-                        <div class="flip-card">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <img src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" style={{ width: '200px', height: '200px' }} />
-                                </div>
-                                <div class="flip-card-back">
-                                    {cardToShow?.description}
-                                </div>
+                    <div style={{ border: '1px solid gray', textAlign: 'center' }}>
+                        <div>
+                            <div>
+                                <img src={`${DOMAIN}/${linkImageCard}`} alt="Avatar" style={{ width: '200px', height: '200px' }} />
+                            </div>
+                            <div >
+                                {cardToShow?.description}
                             </div>
                         </div>
-
-                    </>
+                    </div>
                 )
             }
 

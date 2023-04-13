@@ -10,8 +10,8 @@ import Button from '@mui/material/Button';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import './Register.css';
 import { registerUser } from '../../apis/userAPI';
+import './Register.css';
 
 export default function Register() {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -86,6 +86,7 @@ export default function Register() {
                             </InputAdornment>
                         }
                         required={true}
+                        inputProps={{minLength: 6}}
                         onChange={e => setPassword(e.target.value)}
                     />
                     <FormHelperText id="password">Enter your password</FormHelperText>

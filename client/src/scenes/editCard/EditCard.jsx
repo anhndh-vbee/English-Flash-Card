@@ -18,7 +18,6 @@ const EditCard = () => {
     const allCards = useSelector(state => state.cards.allCards?.listCards);
     const cardToUpdate = allCards?.find(card => card?._id === id)
 
-    // const { description, image } = cardToUpdate;
     const [description, setDescription] = useState(cardToUpdate?.description);
     const [image, setImage] = useState(cardToUpdate?.image);
 
@@ -39,10 +38,6 @@ const EditCard = () => {
                     <div className="edit-card-container">
                         <div className='edit-card-header'>Edit card</div>
                         <form onSubmit={() => handleEditCard(cardToUpdate?._id)} className='form-edit'>
-                            {/* <div className="card-img">
-                                    <img className="card-img-info" src={`${DOMAIN}/${imgCard}`} alt="card image" />
-                                </div> */}
-
                             <FormControl variant="standard" sx={{ m: 1 }}>
                                 <InputLabel htmlFor="description">Descirption</InputLabel>
                                 <Input
