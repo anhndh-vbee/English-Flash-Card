@@ -1,22 +1,22 @@
 .edit-lesson-container {
-    width: 80%;
-    margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .edit-lesson-header {
-    text-align: center;
-    margin-top: 5px;
-    font-size: larger;
-    font-weight: bold;
+  text-align: center;
+  margin-top: 5px;
+  font-size: larger;
+  font-weight: bold;
 }
 
 .form-update-lesson {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 .list-card-to-edit {
-    width: 80%;
-    margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }

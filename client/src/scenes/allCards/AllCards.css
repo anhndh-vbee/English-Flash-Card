@@ -1,18 +1,18 @@
 .list-card-container {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    gap: 5px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 5px;
 }
 
 .list-card-header {
-    text-align: center;
-    font-size: larger;
-    font-weight: bold;
-    color: blue;
-    margin-top: 5px;
-    margin-bottom: 10px;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  color: blue;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .allcards {
-    background: whitesmoke;
+  background: whitesmoke;
 }

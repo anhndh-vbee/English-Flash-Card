@@ -1,49 +1,49 @@
 .lesson-container {
-    padding: 10px;
-    border: 1px solid gray;
-    margin: 5px;
+  padding: 10px;
+  border: 1px solid gray;
+  margin: 5px;
 }
 
 .lesson-content {
-    float: left;
+  float: left;
 }
 
 .list-card-of-lesson {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 5px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 5px;
 }
 
 .lesson-header-and-action {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .lesson-header-check {
-    display: flex;
+  display: flex;
 }
 
 .lesson-header {
-    text-align: center;
-    font-size: large;
-    font-weight: bold;
-    margin-bottom: 3px;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 3px;
 }
 
 .check-lesson {
-    float: right;
-    margin-left: auto;
+  float: right;
+  margin-left: auto;
 }
 
 .lesson-action {
-    display: flex;
-    margin: 0 auto;
+  display: flex;
+  margin: 0 auto;
 }
 
 .name-lesson-of-user {
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
